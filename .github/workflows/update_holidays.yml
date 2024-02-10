@@ -1,0 +1,33 @@
+# 日本の祝日データを更新します
+
+name: Update Holidays
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1' # Every Monday at 00:00
+
+jobs:
+
+  update_holidays:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Update Holidays
+        run: go run ./hack/import/import_japan_holidays.go > ./holidays.go
+
+      - name: Commit
+        run: |
+          git diff --exit-code --quiet || exit 0
+          
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add holidays.go
+          git commit -m "Update holidays"
+          git push
