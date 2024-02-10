@@ -3,13 +3,15 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
-	"golang.org/x/text/encoding/japanese"
-	"golang.org/x/text/transform"
 	"io"
 	"net/http"
 	"os"
+	"sort"
 	"strings"
 	"text/template"
+
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
 )
 
 const (
@@ -19,12 +21,17 @@ const (
 	holidayTemplate = `package japan_holiday
 
 var holidays = map[string]string{
-	{{- range $date, $name := . }}
-		"{{ $date }}": "{{ $name }}",
+	{{- range . }}
+		"{{ .Date }}": "{{ .Name }}",
 	{{- end }}
 }
 `
 )
+
+type Holiday struct {
+	Date string
+	Name string
+}
 
 // 祝日データをダウンロードして、祝日のmapを生成する
 func main() {
@@ -46,7 +53,7 @@ func main() {
 	reader := csv.NewReader(transform.NewReader(bufio.NewReader(csvFile), japanese.ShiftJIS.NewDecoder()))
 
 	// Create a map to store holidays
-	var holidays = make(map[string]string)
+	var holidays []Holiday
 
 	// Read each record from CSV
 	for {
@@ -63,8 +70,12 @@ func main() {
 
 		// Assuming the CSV format is date,holiday_name
 		holidayName := record[1]
-		holidays[date] = holidayName
+		holidays = append(holidays, Holiday{Date: date, Name: holidayName})
 	}
+
+	sort.SliceStable(holidays, func(i, j int) bool {
+		return holidays[i].Date < holidays[j].Date
+	})
 
 	tmpl, err := template.New("holidays").Parse(holidayTemplate)
 	if err != nil {

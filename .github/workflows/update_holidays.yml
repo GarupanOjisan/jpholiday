@@ -20,12 +20,15 @@ jobs:
           go-version: '1.21'
 
       - name: Update Holidays
-        run: go run ./hack/import/import_japan_holidays.go > ./holidays.go
+        run: |
+          go run ./hack/import/import_japan_holidays.go > ./holidays.go
+          go fmt ./holidays.go
 
       - name: Commit
         run: |
           git diff --exit-code --quiet || exit 0
           
+          git co -b update-holidays-$(date +'%Y%m%d')
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add holidays.go
