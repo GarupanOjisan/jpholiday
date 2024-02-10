@@ -1,3 +1,6 @@
+[![Go Test](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/go.yml)
+[![Update Holidays](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/update_holidays.yml/badge.svg?branch=main)](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/update_holidays.yml)
+
 # japan-holiday
 
 このパッケージは、日本の祝日に関する機能を提供します。
