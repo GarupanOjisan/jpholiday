@@ -18,7 +18,7 @@ const (
 	url     = "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
 	outPath = "syukujitsu.csv"
 
-	holidayTemplate = `package japan_holiday
+	holidayTemplate = `package jpholiday
 
 var holidays = map[string]string{
 	{{- range . }}

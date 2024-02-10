@@ -1,4 +1,4 @@
-package japan_holiday
+package jpholiday
 
 var holidays = map[string]string{
 	"1955-1-1":   "元日",

@@ -1,4 +1,4 @@
-module github.com/garupanojisan/japan-holiday
+module github.com/garupanojisan/jpholiday
 
 go 1.21.5
 

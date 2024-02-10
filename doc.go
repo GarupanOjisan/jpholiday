@@ -1,1 +1,1 @@
-package japan_holiday
+package jpholiday
