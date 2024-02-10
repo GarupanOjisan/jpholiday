@@ -1,4 +1,4 @@
-package japan_holiday
+package jpholiday
 
 import "time"
 
