@@ -26,11 +26,13 @@ jobs:
 
       - name: Commit
         run: |
-          git diff --exit-code --quiet || exit 0
-          
-          git checkout -b update-holidays-$(date +'%Y%m%d')
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add holidays.go
-          git commit -m "Update holidays"
-          git push
+          git add -N ./holidays.go
+          if ! git diff --exit-code --quiet
+          then
+            git checkout -b update-holidays-$(date +'%Y%m%d')
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git add holidays.go
+            git commit -m "Update holidays"
+            git push
+          fi
