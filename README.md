@@ -1,14 +1,14 @@
 [![Go Test](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/go.yml)
 [![Update Holidays](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/update_holidays.yml/badge.svg?branch=main)](https://github.com/GarupanOjisan/japan-holiday/actions/workflows/update_holidays.yml)
 
-# japan-holiday
+# jpholiday
 
 このパッケージは、日本の祝日に関する機能を提供します。
 
 ## インストール
 
 ```bash
-go get github.com/garupanojisan/japan-holiday
+go get github.com/garupanojisan/jpholiday
 ```
 
 ## 制限
@@ -24,18 +24,18 @@ import (
 	"fmt"
 	"time"
 	
-	"github.com/GarupanOjisan/japan-holiday"
+	"github.com/GarupanOjisan/jpholiday"
 )
 
 func main() {
 	// 2023年1月1日は祝日かどうか
 	jst, _ := time.LoadLocation("Asia/Tokyo")
 	date := time.Date(2023, 1, 1, 0, 0, 0, 0, jst)
-	isHoliday := japan_holiday.IsJapanHoliday(date)
+	isHoliday := jpholiday.IsJapanHoliday(date)
 	fmt.Println("2023年1月1日は祝日ですか？", isHoliday)
 
 	// 2023年1月1日の祝日名
-	name, ok := japan_holiday.GetJapanHolidayName(date)
+	name, ok := jpholiday.GetJapanHolidayName(date)
 	if ok {
 		fmt.Println("2023年1月1日の祝日名は", name, "です")
 	} else {
