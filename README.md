@@ -8,7 +8,7 @@
 ## インストール
 
 ```bash
-go get github.com/GarupanOjisan/japan-holiday
+go get github.com/garupanojisan/japan-holiday
 ```
 
 ## 制限
