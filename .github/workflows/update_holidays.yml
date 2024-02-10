@@ -24,15 +24,11 @@ jobs:
           go run ./hack/import/import_japan_holidays.go > ./holidays.go
           go fmt ./holidays.go
 
-      - name: Commit
-        run: |
-          git add -N ./holidays.go
-          if ! git diff --exit-code --quiet
-          then
-            git checkout -b update-holidays-$(date +'%Y%m%d')
-            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git config --local user.name "github-actions[bot]"
-            git add holidays.go
-            git commit -m "Update holidays"
-            git push
-          fi
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@b1ddad2c994a25fbc81a28b3ec0e368bb2021c50 # v6.0.0
+        with:
+          add-paths: holidays.go
+          commit-message: Update holidays on $(date +'%Y-%m-%d')
+          branch: update-holidays
+          title: Update holidays
+          reviewers: GarupanOjisan
